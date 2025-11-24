@@ -1,31 +1,9 @@
-// You can edit this code!
-// Click here and start typing.
 package main
 
 import (
 	"fmt"
-	"time"
+	"structs/first-app/user"
 )
-
-type user struct {
-	firstName string
-	lastName  string
-	birthDate string
-	createdAt time.Time
-}
-
-func (u *user) outputUserDetails() {
-
-	//access struct fields using the pointer dereference operator
-	fmt.Println("first name: ", u.firstName)
-	fmt.Println("last name: ", u.lastName)
-	fmt.Println("birth date: ", u.birthDate)
-	fmt.Println("created at: ", u.createdAt)
-
-	//alternative way to access struct fields using pointer dereference, the above is the shortcut
-	// fmt.Println((*u).firstName)
-
-}
 
 func main() {
 
@@ -33,45 +11,21 @@ func main() {
 	lastName := getUserData("Please enter your last name: ")
 	birthDate := getUserData("Please enter your birthDate (MM/DD/YYYY): ")
 
-	var appUser *user
+	//***If a variable is a pointer to a struct, it automatically gets access to all methods that have a pointer receiver.***
+	var appUser *user.User
 
-	appUser = newUser(firstName, lastName, birthDate)
-	//pass the address of appUser to outputUserDetails instead of a copy of appUser
-	appUser.outputUserDetails()
-	appUser.clearUserName()
-	appUser.outputUserDetails()
-}
+	appUser, err := user.NewUser(firstName, lastName, birthDate)
 
-func newUser(firstName, lastName, birthDate string) *user {
-	return &user{
-		firstName: firstName,
-		lastName:  lastName,
-		birthDate: birthDate,
-		createdAt: time.Now(),
+	if err != nil {
+		fmt.Println("Error creating user: ", err)
+		return
 	}
+
+	//pass the address of appUser to outputUserDetails instead of a copy of appUser
+	appUser.OutputUserDetails()
+	appUser.ClearUserName()
+	appUser.OutputUserDetails()
 }
-
-func (u *user) clearUserName() {
-	u.firstName = ""
-	u.lastName = ""
-	u.birthDate = ""
-	u.createdAt = time.Time{}
-}
-
-/* // function now accepts a pointer to a user struct
-func outputUserDetails(u *user) {
-
-	//access struct fields using the pointer dereference operator
-	fmt.Println("first name: ", u.firstName)
-	fmt.Println("last name: ", u.lastName)
-	fmt.Println("birth date: ", u.birthDate)
-	fmt.Println("created at: ", u.createdAt)
-
-	//alternative way to access struct fields using pointer dereference, the above is the shortcut
-	// fmt.Println((*u).firstName)
-
-}
-*/
 
 func getUserData(promptText string) string {
 
