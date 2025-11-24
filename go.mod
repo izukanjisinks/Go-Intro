@@ -1,3 +1,3 @@
-module investment-calculator/first-app
+module structs/first-app
 
 go 1.25.3
