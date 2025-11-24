@@ -21,6 +21,12 @@ func main() {
 		return
 	}
 
+	admin := user.NewAdmin("test@example.com", "test123")
+
+	admin.User.OutputUserDetails()
+	admin.User.ClearUserName()
+	admin.User.OutputUserDetails()
+
 	//pass the address of appUser to outputUserDetails instead of a copy of appUser
 	appUser.OutputUserDetails()
 	appUser.ClearUserName()

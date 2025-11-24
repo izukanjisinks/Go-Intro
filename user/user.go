@@ -13,6 +13,12 @@ type User struct {
 	createdAt time.Time
 }
 
+type Admin struct {
+	email    string
+	password string
+	User     User
+}
+
 func (u *User) OutputUserDetails() {
 
 	//access struct fields using the pointer dereference operator
@@ -23,6 +29,21 @@ func (u *User) OutputUserDetails() {
 
 	//alternative way to access struct fields using pointer dereference, the above is the shortcut
 	// fmt.Println((*u).firstName)
+
+}
+
+func NewAdmin(email, password string) Admin {
+
+	return Admin{
+		email:    email,
+		password: password,
+		User: User{
+			firstName: "ADMIN",
+			lastName:  "ADMIN",
+			birthDate: "---",
+			createdAt: time.Now(),
+		},
+	}
 
 }
 
