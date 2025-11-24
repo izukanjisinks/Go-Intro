@@ -14,6 +14,19 @@ type user struct {
 	createdAt time.Time
 }
 
+func (u user) outputUserDetails() {
+
+	//access struct fields using the pointer dereference operator
+	fmt.Println("first name: ", u.firstName)
+	fmt.Println("last name: ", u.lastName)
+	fmt.Println("birth date: ", u.birthDate)
+	fmt.Println("created at: ", u.createdAt)
+
+	//alternative way to access struct fields using pointer dereference, the above is the shortcut
+	// fmt.Println((*u).firstName)
+
+}
+
 func main() {
 
 	firstName := getUserData("Please enter your first name")
@@ -29,10 +42,10 @@ func main() {
 		createdAt: time.Now(),
 	}
 	//pass the address of appUser to outputUserDetails instead of a copy of appUser
-	outputUserDetails(&appUser)
+	appUser.outputUserDetails()
 }
 
-// function now accepts a pointer to a user struct
+/* // function now accepts a pointer to a user struct
 func outputUserDetails(u *user) {
 
 	//access struct fields using the pointer dereference operator
@@ -45,6 +58,7 @@ func outputUserDetails(u *user) {
 	// fmt.Println((*u).firstName)
 
 }
+*/
 
 func getUserData(promptText string) string {
 
