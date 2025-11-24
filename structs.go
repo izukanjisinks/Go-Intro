@@ -29,27 +29,33 @@ func (u *user) outputUserDetails() {
 
 func main() {
 
-	firstName := getUserData("Please enter your first name")
-	lastName := getUserData("Please enter your last name")
-	birthDate := getUserData("Please enter your birthDate (MM/DD/YYYY)")
+	firstName := getUserData("Please enter your first name: ")
+	lastName := getUserData("Please enter your last name: ")
+	birthDate := getUserData("Please enter your birthDate (MM/DD/YYYY): ")
 
-	var appUser user
+	var appUser *user
 
-	appUser = user{
-		firstName: firstName,
-		lastName:  lastName,
-		birthDate: birthDate,
-		createdAt: time.Now(),
-	}
+	appUser = newUser(firstName, lastName, birthDate)
 	//pass the address of appUser to outputUserDetails instead of a copy of appUser
 	appUser.outputUserDetails()
 	appUser.clearUserName()
 	appUser.outputUserDetails()
 }
 
+func newUser(firstName, lastName, birthDate string) *user {
+	return &user{
+		firstName: firstName,
+		lastName:  lastName,
+		birthDate: birthDate,
+		createdAt: time.Now(),
+	}
+}
+
 func (u *user) clearUserName() {
 	u.firstName = ""
 	u.lastName = ""
+	u.birthDate = ""
+	u.createdAt = time.Time{}
 }
 
 /* // function now accepts a pointer to a user struct
